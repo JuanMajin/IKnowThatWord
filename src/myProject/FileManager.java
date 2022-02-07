@@ -39,7 +39,7 @@ public class FileManager {
 
     public void escribirTexto(String linea){
         try {
-            fileWriter = new FileWriter("src/myProject/files/palabras.txt",true);
+            fileWriter = new FileWriter("src/myProject/files/nombres.txt",true);
             output = new BufferedWriter(fileWriter);
             output.write(linea);
             output.newLine();

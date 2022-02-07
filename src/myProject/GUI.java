@@ -11,6 +11,23 @@ import java.awt.*;
 public class GUI extends JFrame {
 
     private Header headerProject;
+    private JPanel panelNombre,panelPalabras;
+    private JButton ayuda,salir,si,no;
+    //private Timer timer;
+    private Escucha escucha;
+    private JTextField nombres;
+    private FileManager fileManager;
+    public static final String PATH_LECTURA_PALABRAS = "src/myProject/files/palabras.txt";
+    public static final String PATH_LECTURA_NOMBRE = "src/myProject/files/nombres.txt";
+    public static final String NOMBRE_JUGADOR = "Ingresa tu nombre";
+    public static final String MENSAJE_INICIO= "Bienvenido a I Know That Word\n"
+            +"El jugador deberá memorizar las palabras que van apareciendo"
+            +"las palabras que van apareciendo.\n"
+            +"\nTras la serie de palabras a memorizar, el juego presentará un listado con el doble de palabras que se "
+            +"mostraron. Por cada una las palabras el jugador deberá indicar si la palabra estaba o no contenida en el "
+            +"listado a memorizar y tendrá un tiempo de 7 segundos para responder, en caso de no hacerlo se tomará"
+            +"como un error.";
+
 
     /**
      * Constructor of GUI class
@@ -35,8 +52,10 @@ public class GUI extends JFrame {
     private void initGUI() {
         //Set up JFrame Container's Layout
         //Create Listener Object and Control Object
+        escucha= new Escucha();
+        fileManager=new FileManager();
         //Set up JComponents
-        headerProject = new Header("Header ...", Color.BLACK);
+        headerProject = new Header("I Know That Word", Color.BLACK);
 
         this.add(headerProject,BorderLayout.NORTH); //Change this line if you change JFrame Container's Layout
     }

@@ -10,15 +10,15 @@ public class FileManager {
     private FileWriter fileWriter;
     private BufferedWriter output;
 
-    ArrayList<String> lecturaFile() {
-        ArrayList<String> frases = new ArrayList<String>();
+    public ArrayList<String> lecturaFile() {
+        ArrayList<String> palabras = new ArrayList<String>();
 
         try {
             fileReader = new FileReader("src/myProject/files/palabras.txt");
             input = new BufferedReader(fileReader);
             String line = input.readLine();
             while(line!=null){
-                frases.add(line);
+                palabras.add(line);
                 //texto+=line;
                 //texto+="\n";
                 line=input.readLine();
@@ -34,12 +34,38 @@ public class FileManager {
                 e.printStackTrace();
             }
         }
-        return frases;
+        return palabras;
+    }
+
+    public String nombrelecturaFile() {
+        String nombre = "";
+
+        try {
+            fileReader = new FileReader("src/myProject/files/nombre.txt");
+            input = new BufferedReader(fileReader);
+            String line = input.readLine();
+            while(line!=null){
+                nombre+=line;
+                nombre+="\n";
+                line=input.readLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                input.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return nombre;
     }
 
     public void escribirTexto(String linea){
         try {
-            fileWriter = new FileWriter("src/myProject/files/nombres.txt",true);
+            fileWriter = new FileWriter("src/myProject/files/nombre.txt",true);
             output = new BufferedWriter(fileWriter);
             output.write(linea);
             output.newLine();

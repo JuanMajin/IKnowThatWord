@@ -11,7 +11,7 @@ public class Palabras {
         FileManager fileManager= new FileManager();
         palabras= fileManager.lecturaFile();
     }
-    public String getFrase(){
+    public String getPalabra(){
         Random aleatorio= new Random();
         return palabras.get(aleatorio.nextInt(palabras.size()));
     }

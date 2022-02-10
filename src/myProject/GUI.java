@@ -15,8 +15,8 @@ public class GUI extends JFrame {
 
     private Header headerProject;
     private JPanel panelNombre,panelPalabras,panelResultados;
-    private JButton iniciar,si,no,continuar;
-    private JTextArea mensajeSalida,nombre;
+    private JButton iniciar,si,no,continuar,ayuda;
+    private JTextArea mensajeSalida,nombre,palabrasMemoria;
     private Timer timer;
     private Escucha escucha;
     private JTextField nombres;
@@ -35,6 +35,7 @@ public class GUI extends JFrame {
             + "\nsi la palabra estaba o no contenida en el listado a memorizar "
             + "\ny tendrá un tiempo de 7 segundos para responder, "
             + "\nen caso de no hacerlo se tomará como un error.";
+    public static final String ALERTA= "No puedes iniciar el juego, ingresa tu nombre";
 
 
     /**
@@ -75,9 +76,10 @@ public class GUI extends JFrame {
         nombres.addActionListener(escucha);
         nombres.setPreferredSize(new Dimension(200,20));
 
+
         nombre = new JTextArea(4,16);
-        JScrollPane scroll2= new JScrollPane(nombre);
-        add(scroll2,BorderLayout.CENTER);
+        JScrollPane scroll= new JScrollPane(nombre);
+        add(scroll,BorderLayout.CENTER);
         nombre.setText(fileManager.nombrelecturaFile());
 
         panelNombre= new JPanel();
@@ -88,22 +90,38 @@ public class GUI extends JFrame {
         //panelNombre.add(nombre);
         panelNombre.add(iniciar);
 
-        mensajeSalida= new JTextArea(7,35);
-        mensajeSalida.setText(MENSAJE_INICIO);
-        JScrollPane scroll= new JScrollPane(mensajeSalida);
+
+        ayuda= new JButton("Ayuda");
+        ayuda.addActionListener(escucha);
+        panelNombre.add(ayuda);
+
+        mensajeSalida= new JTextArea(4,18);
+        mensajeSalida.setText(fileManager.nombrelecturaFile());
+        mensajeSalida.setOpaque(false);
+        mensajeSalida.setBackground(new Color(0));
+        mensajeSalida.setEditable(false);
+
 
         panelResultados= new JPanel();
         panelResultados.setBorder(BorderFactory.createTitledBorder("Que debes hacer "));
-        panelResultados.add(scroll);
         panelResultados.setPreferredSize(new Dimension(420,180));
         this.add(panelResultados,BorderLayout.EAST);
+
 
         panelPalabras= new JPanel();
         panelPalabras.setBorder(BorderFactory.createTitledBorder("Memoriza "));
         panelPalabras.setPreferredSize(new Dimension(420,180));
         this.add(panelPalabras,BorderLayout.SOUTH);
 
-        //timer= new Timer(1000,escucha);
+        palabrasMemoria=new JTextArea(7,38);
+        palabrasMemoria.setOpaque(false);
+        palabrasMemoria.setBackground(new Color(0));
+        palabrasMemoria.setEditable(false);
+
+        //palabrasMemoria.setText(fileManager.lecturaFile());
+
+
+        timer= new Timer(5000,escucha);
         //timer.start();
 
         si= new JButton("SI");
@@ -135,15 +153,27 @@ public class GUI extends JFrame {
         }*/
         @Override
         public void actionPerformed(ActionEvent e) {
-            modelGame.determinarNivel();
 
-            panelResultados.removeAll();
-            panelResultados.setBorder(BorderFactory.createTitledBorder("Resultados "));
-            panelResultados.add(mensajeSalida);
-            mensajeSalida.setText(modelGame.getEstadoToString());
-            panelNombre.setBorder(BorderFactory.createTitledBorder("Jugador "));
-            fileManager.escribirTexto(nombres.getText());
-            nombre.setText(fileManager.nombrelecturaFile());
+            if(e.getSource()==iniciar && nombres.getText()!=null && nombres.getText().equals("")) {
+                JOptionPane.showMessageDialog(null,ALERTA,"ALERTA",JOptionPane.WARNING_MESSAGE);
+            }else{
+                    modelGame.determinarNivel();
+                    panelResultados.setBorder(BorderFactory.createTitledBorder("Resultados "));
+                    mensajeSalida.setText(modelGame.getEstadoToString());
+                    panelResultados.add(mensajeSalida);
+
+                    panelNombre.setBorder(BorderFactory.createTitledBorder("Jugador "));
+                    fileManager.escribirTexto(nombres.getText());
+                    nombre.setText(fileManager.nombrelecturaFile());
+                    //panelResultados.add(nombre);
+
+                    palabrasMemoria.setText(fileManager.lecturaFile().get(0));
+                    panelPalabras.add(palabrasMemoria);
+                    timer.start();
+                    revalidate();
+                    repaint();
+                    //panelPalabras.add(si);
+                    //panelPalabras.add(no);
 
 
             /*ArrayList<Palabras> palabrasRecordar=modelGame.getPalabrasRecordar();
@@ -151,9 +181,15 @@ public class GUI extends JFrame {
             fileManager.lecturaFile(modelGame.getPalabrasRecordar().get(0));
             panelPalabras.add(palabrasRecordar);*/
 
+            }
+            if(e.getSource()==ayuda){
+                JOptionPane.showMessageDialog(null,MENSAJE_INICIO);
+
+            }
             revalidate();
             repaint();
         }
+
     }
 
 }

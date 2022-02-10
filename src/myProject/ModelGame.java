@@ -4,26 +4,28 @@ import java.util.ArrayList;
 
 public class ModelGame {
     String nombreJugador;
-    int nivel,aciertos,palabrasMemorizar,palabrasNivel;
-    private ArrayList<Palabras> palabrasRecordar;
-    private ArrayList<Palabras> palabrasTotales;
+    int nivel,aciertos,palabrasRecordar,palabrasTotales;
+    private Palabras palabras;
+    private ArrayList<String>  palabrasNivel;
+    private ArrayList<String> palabrasMemorizar;
 
     public ModelGame(String nombreJugador){
-        palabrasTotales= new ArrayList<Palabras>();
-        palabrasRecordar= new ArrayList<>();
+        palabras= new Palabras();
+        palabrasNivel= new ArrayList<String>();
+        palabrasMemorizar= new ArrayList<String>();
         nivel=1;
         aciertos=0;
-        palabrasMemorizar=10;
-        palabrasNivel=20;
+        palabrasRecordar=10;
+        palabrasTotales=20;
     }
 
-    public ArrayList<Palabras> getPalabrasTotales(){
-       return palabrasTotales;
-    }
+   // public ArrayList<String> getPalabrasNivel(int palabrasTotales){
+      // return palabras.getPalabrasTotales(palabrasNivel);
+    //}
 
-    public ArrayList<Palabras> getPalabrasRecordar(){
-        return palabrasRecordar;
-    }
+   // public ArrayList<String> getPalabrasMemorizar(int palabrasRecordar){
+     //   return palabras.getPalabrasRecordar(palabrasMemorizar);
+    //}
 
     private void palabras(){
         String palabra;
@@ -33,7 +35,7 @@ public class ModelGame {
 
     public boolean siEsta(){
         String palabra="";
-        for (int i = 0; i < palabrasRecordar.size(); i++) {
+        for (int i = 0; i < palabrasMemorizar.size(); i++) {
             aciertos +=  aciertos;
         }
         if(palabra=="Humanidad") {/*recorre las palabrasRecordar y si estaba la palabra*/
@@ -50,53 +52,53 @@ public class ModelGame {
 
     public void determinarNivel(){
         if(nivel==1) {
-            palabrasNivel = 20;
-            palabrasMemorizar = 10;
+            palabrasTotales = 20;
+            palabrasRecordar = 10;
         }else{
             if (aciertos >= 14){
                 nivel = 2;
-                palabrasNivel = 40;
-                palabrasMemorizar = 20;
+                palabrasTotales = 40;
+                palabrasRecordar = 20;
             }else{
                 if (aciertos >=28){
                     nivel = 3;
-                    palabrasNivel = 50;
-                    palabrasMemorizar=25;
+                    palabrasTotales = 50;
+                    palabrasRecordar=25;
                 }else{
                     if (aciertos >=38){
                         nivel = 4;
-                        palabrasNivel = 60;
-                        palabrasMemorizar=30;
+                        palabrasTotales = 60;
+                        palabrasRecordar=30;
                     }else{
                         if (aciertos >=48){
                             nivel = 5;
-                            palabrasNivel = 70;
-                            palabrasMemorizar=35;
+                            palabrasTotales = 70;
+                            palabrasRecordar=35;
                         }else{
                             if (aciertos >=56){
                                 nivel = 6;
-                                palabrasNivel = 80;
-                                palabrasMemorizar=40;
+                                palabrasTotales = 80;
+                                palabrasRecordar=40;
                             }else{
                                 if (aciertos >=68){
                                     nivel = 7;
-                                    palabrasNivel = 100;
-                                    palabrasMemorizar=50;
+                                    palabrasTotales = 100;
+                                    palabrasRecordar=50;
                                 }else{
                                     if (aciertos >=90){
                                         nivel = 8;
-                                        palabrasNivel = 120;
-                                        palabrasMemorizar=60;
+                                        palabrasTotales= 120;
+                                        palabrasRecordar=60;
                                     }else{
                                         if (aciertos >=108){
                                             nivel = 9;
-                                            palabrasNivel = 140;
-                                            palabrasMemorizar=70;
+                                            palabrasTotales = 140;
+                                            palabrasRecordar=70;
                                         }else{
                                             if (aciertos >=133){
                                                 nivel = 10;
-                                                palabrasNivel = 200;
-                                                palabrasMemorizar=100;
+                                                palabrasTotales= 200;
+                                                palabrasRecordar=100;
                                             }
                                         }
                                     }
@@ -130,8 +132,8 @@ public class ModelGame {
         return "Nombre:"+nombreJugador+
                 "\nNivel: "+nivel+
                 "\nAciertos: "+aciertos+
-                "\nPalabras a memorizar: "+palabrasMemorizar+
-                "\nPalabras Nivel: "+palabrasNivel;
+                "\nPalabras a memorizar: "+palabrasRecordar+
+                "\nPalabras Nivel: "+palabrasTotales;
 
     }
 }

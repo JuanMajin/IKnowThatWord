@@ -127,10 +127,11 @@ public class ModelGame {
     }
 
     public String getEstadoToString(){
-        return "Nivel: "+nivel+
-        "\nAciertos: "+aciertos+
-        "\nPalabras a memorizar: "+palabrasMemorizar+
-        "\nPalabras Nivel: "+palabrasNivel;
+        return "Nombre:"+nombreJugador+
+                "\nNivel: "+nivel+
+                "\nAciertos: "+aciertos+
+                "\nPalabras a memorizar: "+palabrasMemorizar+
+                "\nPalabras Nivel: "+palabrasNivel;
 
     }
 }

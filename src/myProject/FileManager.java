@@ -3,6 +3,8 @@ package myProject;
 import java.io.*;
 import java.util.ArrayList;
 
+/**Lee y escribe en los txt*/
+
 public class FileManager {
 
     private FileReader fileReader;
@@ -10,6 +12,7 @@ public class FileManager {
     private FileWriter fileWriter;
     private BufferedWriter output;
 
+    /**lee las palabras y las contiene en un arraylist*/
     public ArrayList<String> lecturaFile() {
         ArrayList<String> palabras = new ArrayList<String>();
 
@@ -37,16 +40,16 @@ public class FileManager {
         return palabras;
     }
 
-    public String nombrelecturaFile() {
-        String nombre = "";
+    /**Lee los nombres y los almacena en un arraylist*/
+    public ArrayList<String>nombrelecturaFile() {
+        ArrayList<String> nombres = new ArrayList<String>();
 
         try {
             fileReader = new FileReader("src/myProject/files/nombre.txt");
             input = new BufferedReader(fileReader);
             String line = input.readLine();
             while(line!=null){
-                nombre+=line;
-                nombre+="\n";
+                nombres.add(line);
                 line=input.readLine();
             }
         } catch (FileNotFoundException e) {
@@ -60,9 +63,10 @@ public class FileManager {
                 e.printStackTrace();
             }
         }
-        return nombre;
+        return nombres;
     }
 
+    /**Escribe los nombres de los jugadores*/
     public void escribirTexto(String linea){
         try {
             fileWriter = new FileWriter("src/myProject/files/nombre.txt",true);
@@ -79,5 +83,24 @@ public class FileManager {
             }
         }
     }
+
+    /*public void nivelAprobado( int nivel, int posicion){
+        try {
+            ArrayList<String> actualizar= nombrelecturaFile();
+            String jugador = actualizar.get(posicion);
+            String jugadorActualizado = jugador.substring(0, jugador.lastIndexOf(":")+1) +  nivel;
+            actualizar.remove(posicion);
+            actualizar.add(posicion,jugadorActualizado);
+            fileWriter = new FileWriter("src/myProject/files/nombre.txt",false);
+            output = new BufferedWriter(fileWriter);
+            for (int i=0;i<actualizar.size();i++){
+                output.write(actualizar.get(i));
+                output.newLine();
+            }
+            output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
 
 }
